@@ -48,7 +48,7 @@ const handleDelete = (movieId) => {
     getData("DELETE", movieId);
 };
 const handleEdit = (movieId) =>
-    (window.location.href = `/add-movie-page.html?EditMovie=${movieId}`);
+    (window.location.href = `/M3-DAY10-Homework/add-movie-page.html?EditMovie=${movieId}`);
 
 const handleLoadMovies = async() => {
     console.log("Loading...");
