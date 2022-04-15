@@ -1,6 +1,6 @@
 console.log("This is the add movie page");
 
-// handle submit
+// handle submit movie
 
 const handleSubmit = (event) => {
     event.preventDefault();
@@ -47,17 +47,39 @@ const handleDelete = (movieId) => {
     alert(`You have deleted ${movieId}`);
     getData("DELETE", movieId);
 };
-const handleEdit = (movieId) =>
-    (window.location.href = `/add-movie-page.html?EditMovie=${movieId}`);
+
+let loadCategory = [];
+const handleSelection = (event) => {
+    const select = document.querySelector("#select-category");
+    let index = select.options.selectedIndex;
+    index === 0 ?
+        (loadCategory = []) :
+        (loadCategory = [select.options[index].value]);
+    console.log(loadCategory.length);
+
+    console.log("category: ", select.options[index].value, "index: ", index);
+    console.log("Load index: ", loadCategory);
+};
 
 const handleLoadMovies = async() => {
     console.log("Loading...");
-    let categories = await getData("GET");
+    if (loadCategory.length) {
+        loadCategory.forEach((movie) => {
+            getAllMovies(movie);
+        });
+    } else {
+        let categories = await getData("GET");
 
-    console.log(categories);
-    categories.forEach((movie) => {
-        getAllMovies(movie);
-    });
+        console.log(categories);
+        categories.forEach((movie) => {
+            getAllMovies(movie);
+        });
+    }
+};
+
+const handleEdit = (name, description, category, _id, createdAt) => {
+    window.location.href = `/add-movie-page.html?name=${name}&description=${description}
+    &category=${category}&_id=${_id}&createdAt=${createdAt}`;
 };
 
 const getAllMovies = async(movie) => {
@@ -70,33 +92,32 @@ const getAllMovies = async(movie) => {
 
 const createThumbnail = async(movie) => {
     // fetch for each category all the movies
-
+    const { name, description, imageUrl, category, _id, createdAt } = movie;
     let moviesRowDB = document.querySelector(".movies-dashboard");
     let movieDb = document.createElement("div");
     movieDb.classList = ["carousel-item", "image-card", "active"];
     movieDb.innerHTML = `
 
     
-    <img src="${movie.imageUrl}" class="d-block image-card img-wrap " alt="...">
+    <img src="${imageUrl}" class="d-block image-card img-wrap " alt="...">
     <div class="carousel-caption caption ">
         <span class="d-flex justify-content-center ">
-              <h5>${movie.name}</h5>
+              <h5>${name}</h5>
         </span>
-        <p>Some kind of description</p>
+        <p>${description}</p>
 
         <!-- edit -->
-        <button type="button" onClick="handleEdit('${movie._id}')" class="btn btn-warning">
+        <button type="button" onClick="handleEdit('${name}','${description}','${category}','${_id}','${createdAt}')" class="btn btn-warning">
         
         <i  class="fa fa-pencil " aria-hidden="true"></i>
         
         </button>
         
         <!-- delete -->
-        <button type="button"  onClick="handleDelete('${movie._id}')" class="btn btn-danger">
+        <button type="button"  onClick="return handleDelete('${_id}')" class="btn btn-danger">
         <i class="fa fa-trash-o " aria-hidden="true"></i>
         </button>
-        
-
+      
 
         
     </div>
@@ -107,12 +128,6 @@ const createThumbnail = async(movie) => {
     }
 
     moviesRowDB.appendChild(movieDb);
-};
-
-const handleSelection = (event) => {
-    const select = document.querySelector("#select-category");
-    let index = select.options.selectedIndex;
-    console.log(select.options[index].value);
 };
 
 window.onload = () => {
