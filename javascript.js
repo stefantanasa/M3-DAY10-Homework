@@ -78,7 +78,7 @@ const handleLoadMovies = async() => {
 };
 
 const handleEdit = (name, description, category, _id, createdAt) => {
-    window.location.href = `/add-movie-page.html?name=${name}&description=${description}
+    window.location.href = `M3-DAY10-Homework/add-movie-page.html?name=${name}&description=${description}
     &category=${category}&_id=${_id}&createdAt=${createdAt}`;
 };
 
