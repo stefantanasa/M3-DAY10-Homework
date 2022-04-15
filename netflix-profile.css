@@ -41,6 +41,7 @@ hr {
   left: 0;
 }
 
+
 .custom-control-label::after {
   background-color: rgb(20, 20, 20) !important;
   border: 1px solid gray;
