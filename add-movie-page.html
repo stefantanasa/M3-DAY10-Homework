@@ -14,8 +14,9 @@
 
 <body>
     <section class="logo">
-        <a href="/"></a>
-        <img src="./assets/Netflix_Logo_RGB.png" alt="netflix logo" width="100" />
+        <a href="/">
+            <img src="./assets/Netflix_Logo_RGB.png" alt="netflix logo" width="100" />
+        </a>
     </section>
     <div class="container">
         <div class="container justify-content-center">
@@ -66,18 +67,16 @@
                             <input type="text" value="https://bit.ly/3cMc2IH" placeholder="https://bit.ly/3cMc2IH" id="cover" class="form-control">
                         </div>
 
-                        <!-- <input  class="edit-button-only" type="submit" value="ADD MOVIE" /> -->
+                        <input onclick="handleSubmit(event)" class="edit-button-only" type="submit" value="ADD MOVIE" />
+                        <!-- <input onclick="handleSubmit(event)" class="edit-button btn-light text-center" type="button" value="ADD MOVIE" /> -->
                     </form>
                 </div>
 
             </div>
-            <hr>
+
 
             <meta name="viewport" content="width=device-width">
 
-            <input onclick="handleSubmit(event)" class="edit-button btn-light text-center" type="button" value="SAVE" />
-            <input class="edit-button" type="button" value="CANCEL" />
-            <input class="edit-button" type="button" value="DELETE PROFILE" />
 
         </div>
     </div>
