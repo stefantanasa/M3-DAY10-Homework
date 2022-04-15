@@ -85,14 +85,14 @@ const createThumbnail = async(movie) => {
         <p>Some kind of description</p>
 
         <!-- edit -->
-        <button type="button" onClick="handleEdit('${movie._id}')" class="btn btn-secondary">
+        <button type="button" onClick="handleEdit('${movie._id}')" class="btn btn-warning">
         
         <i  class="fa fa-pencil " aria-hidden="true"></i>
         
         </button>
         
         <!-- delete -->
-        <button type="button"  onClick="handleDelete('${movie._id}')" class="btn btn-secondary">
+        <button type="button"  onClick="handleDelete('${movie._id}')" class="btn btn-danger">
         <i class="fa fa-trash-o " aria-hidden="true"></i>
         </button>
         
