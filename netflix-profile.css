@@ -78,9 +78,10 @@ label.custom-control-label {
 
 .edit-button-only {
     background-color: rgb(20, 20, 20);
-    color: gray;
+    color: rgb(252, 252, 252);
     padding-left: 15px;
     padding-right: 15px;
     height: 40px;
     border: 1px solid gray;
+    border-radius: 10%;
 }

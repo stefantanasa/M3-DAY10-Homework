@@ -1,0 +1,23 @@
+{
+  "name": "m3-day10-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "javascript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stefantanasa/M3-DAY10-Homework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stefantanasa/M3-DAY10-Homework/issues"
+  },
+  "homepage": "https://github.com/stefantanasa/M3-DAY10-Homework#readme",
+  "dependencies": {
+    "font-awesome": "4.7"
+  }
+}
