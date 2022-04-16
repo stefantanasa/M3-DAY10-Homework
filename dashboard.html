@@ -76,14 +76,28 @@
         <div class="input-group mb-3">
             <h2 class="mr-5 text-white">TV Shows</h2>
             <select onclick="handleSelection(event)" id="select-category" class="btn bg-transparent btn-sm dropdown-toggle text-white border border-white">
-          <option class="bg-dark" value="">Genres</option>
-          <option class="bg-dark" value="Romantic">Romantic</option>
-          <option class="bg-dark" value="Horror">Horror</option>
+          <option onclick="handleLoadMovies()" class="bg-dark" value="">
+            Genres
+          </option>
+          <option
+            onclick="handleLoadMovies()"
+            class="bg-dark"
+            class="Romantic"
+            value="Romantic"
+          >
+            Romantic
+          </option>
+          <option onclick="handleLoadMovies()" class="bg-dark" value="Horror">
+            Horror
+          </option>
           <option class="bg-dark" id="Comedy" value="Comedy">Comedy</option>
           <option class="bg-dark" id="Thriller" value="Thriller">
             Thriller
           </option>
         </select>
+            <a href="/add-movie-page.html">
+                <button class="btn btn-lg btn-warning ml-3">Add Movie</button>
+            </a>
         </div>
 
         <div class="two-icons">
