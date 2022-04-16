@@ -43,9 +43,23 @@ let getData = async(method, id = "", object = {}) => {
 
 // dashboard
 
-const handleDelete = (movieId) => {
-    alert(`You have deleted ${movieId}`);
-    getData("DELETE", movieId);
+const handleDelete = (movieId, title) => {
+    handleValidation(movieId, title);
+};
+
+const handleValidation = (id, title) => {
+    const classId = document.getElementById(`${id}`);
+    console.log(classId);
+    const modalBox = document.querySelector(".movie-title-validation");
+    modalBox.textContent = title;
+    const confirmationButton = document.querySelector(".confirmation-button");
+    confirmationButton.addEventListener("click", () => {
+        console.log("Deleted", id);
+        classId.remove();
+    });
+    console.log("stopped");
+
+    // getData("DELETE", id);
 };
 
 let loadCategory = [];
@@ -53,18 +67,19 @@ let loadCategory = [];
 const handleSelection = async(event) => {
     const select = document.querySelector("#select-category");
 
-    console.log("lc: ", loadCategory);
     let index = select.options.selectedIndex;
     loadCategory = [select.options[index].label];
 
-    console.log("label: ", select.options[index].label);
+    let clickedLabel = select.options[index].label;
 
-    if (select.options[index].label === ["Genres"]) return;
-    else if (loadCategory) {
+    if (index === 0) {
+        handleLoadMovies();
+        return;
+    } else if (loadCategory) {
         moviesRowDB.innerHTML = "";
         loadCategory = [select.options[index].label];
     }
-    console.log("continued");
+    console.log("continued ");
 
     // console.log("continued:", loadCategory); moviesRowDB.innerHTML = "";
     // loadCategory === [] ?
@@ -80,7 +95,14 @@ const handleSelection = async(event) => {
 
 const handleLoadMovies = async() => {
     console.log("Loading...");
-    if (loadCategory.length) {
+    if (loadCategory.includes("Genres")) {
+        loadCategory = await getData("GET");
+        console.log("wHAT LOAD loadCategory:", loadCategory);
+        moviesRowDB.innerHTML = "";
+        loadCategory.forEach((movie) => {
+            getAllMovies(movie);
+        });
+    } else if (loadCategory.length) {
         console.log("What load cat:", loadCategory);
         loadCategory.forEach((movie) => {
             getAllMovies(movie);
@@ -116,7 +138,8 @@ const createThumbnaiDB = async(movie) => {
     const { name, description, imageUrl, category, _id, createdAt } = movie;
 
     let movieDb = document.createElement("div");
-    movieDb.classList = ["carousel-item", "image-card", "active"];
+    movieDb.classList = ["carousel-item", "image-card", "active", _id];
+    movieDb.setAttribute("id", _id);
     movieDb.innerHTML = `
 
    
@@ -143,7 +166,11 @@ const createThumbnaiDB = async(movie) => {
         </button>
         
         <!-- delete -->
-        <button type="button"  onClick="return handleDelete('${_id}')" class="btn btn-danger">
+        <button type="button"
+        onClick="return handleDelete('${_id}','${name}')"
+           class="btn btn-danger"
+           data-toggle="modal" data-target="#validate-delete"
+           >
         <i class="fa fa-trash-o " aria-hidden="true"></i>
         </button>
         </div>
@@ -153,9 +180,7 @@ const createThumbnaiDB = async(movie) => {
     </div>
 
 
-    `; {
-        /* <img class="image-card " src="${movie.imageUrl}" /> */
-    }
+    `;
 
     moviesRowDB.appendChild(movieDb);
 };
