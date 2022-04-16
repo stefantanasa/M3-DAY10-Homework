@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-3" id="">
 
-                    <img id="parent-photo" class="rounded" width="100" src="https://bit.ly/3cMc2IH" alt="movie cover" />
+                    <img id="parent-photo" class="rounded" width="100" src="https://davidbeltran.net/wp-content/uploads/2015/02/default-poster.jpg" alt="movie cover" />
 
                     <a href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" id="edit-icon" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -38,11 +38,11 @@
 
 
                 </div>
-                <div class="col-9">
+                <div class="col-9" id="movie-form">
 
 
 
-                    <form id="new-movie-form">
+                    <form id="new-movie-form" onsubmit="handleSubmit(event)">
                         <div class="form-group">
                             <label for="movie-title">Movie Title</label>
                             <input type="text" placeholder="ex: Strive School,nhg" id="title" value="" class="form-control">
@@ -54,7 +54,7 @@
 
                         <label for="category">Category</label>
                         <div class="input-group mb-3">
-                            <select class="custom-select" id="category">
+                            <select required class="custom-select" id="category">
 
                 <option value="Romantic" selected>Romantic</option>
                 <option value="Horror">Horror</option>
@@ -68,7 +68,7 @@
                             <input type="text" value="" placeholder="ex: https://bit.ly/3cMc2IH" id="cover" class="form-control">
                         </div>
 
-                        <input onclick="handleSubmit(event)" class="edit-button-only" type="submit" value="ADD MOVIE" />
+                        <input class="edit-button-only" type="submit" value="ADD MOVIE" />
                         <!-- <input onclick="handleSubmit(event)" class="edit-button btn-light text-center" type="button" value="ADD MOVIE" /> -->
                     </form>
                 </div>
@@ -81,7 +81,7 @@
 
         </div>
     </div>
-    <script src="javascript.js"></script>
+    <script src="/add-movie-page.js"></script>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

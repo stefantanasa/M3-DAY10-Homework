@@ -17,7 +17,7 @@ const handleSubmit = (event) => {
         imageUrl: coverValue,
     };
 
-    getData("POST", "", movieObject);
+    console.log(getData("POST", "", movieObject));
     console.log(movieObject);
     console.log("ok");
 };
@@ -25,20 +25,26 @@ const handleSubmit = (event) => {
 // this function works with GET/POST/DELETE/PUT
 let getData = async(method, id = "", object = {}) => {
     let body = "";
-    method === "GET" ? (body = null) : (body = JSON.stringify(object));
-    let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/movies/${id}`, {
-            method: method,
-            body,
-            headers: {
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwOWZmNTRjZmY1ZjAwMTU5MGJkYWUiLCJpYXQiOjE2NTAwMTAwMTEsImV4cCI6MTY1MTIxOTYxMX0.gUnkRagRPNMgM7QL-dmazjZn6f0EMEVrADfen5CYDOw",
-                "Content-Type": "Application/Json",
-            },
-        }
-    );
-    data = await response.json();
 
-    return data;
+    try {
+        method === "GET" ? (body = null) : (body = JSON.stringify(object));
+        let response = await fetch(
+            `https://striveschool-api.herokuapp.com/api/movies/${id}`, {
+                method: method,
+                body,
+                headers: {
+                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWIwOWZmNTRjZmY1ZjAwMTU5MGJkYWUiLCJpYXQiOjE2NTAwMTAwMTEsImV4cCI6MTY1MTIxOTYxMX0.gUnkRagRPNMgM7QL-dmazjZn6f0EMEVrADfen5CYDOw",
+                    "Content-Type": "Application/Json",
+                },
+            }
+        );
+        console.log("Response: ", response);
+        data = await response.json();
+
+        return data;
+    } catch (error) {
+        console.log("Error caught: ", error.message);
+    }
 };
 
 // dashboard
@@ -59,7 +65,7 @@ const handleValidation = (id, title) => {
     });
     console.log("stopped");
 
-    // getData("DELETE", id);
+    getData("DELETE", id);
 };
 
 let loadCategory = [];
@@ -148,9 +154,15 @@ const createThumbnaiDB = async(movie) => {
     
     <div class="carousel-caption caption ">
         <span class="d-flex justify-content-center " >
-              <h5 class=" movie-description">${name}${category}</h5>
+              <h5 class=" movie-description">${name}</h5>
         </span>
-        <p class="movie-description">${description}</p>
+        <span class="d-flex justify-content-center " >
+              <p class=" movie-description">${category}</p>
+        </span>
+        <span class="d-flex justify-content-center " >
+              <p class=" movie-description">${description}</p>
+        </span>
+        
         <!-- edit -->
         <div class="actions-button">
         <button 
