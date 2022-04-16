@@ -23,21 +23,57 @@ const handleSubmit = async(event) => {
         let theBody = await getData("POST", "", movieObject);
         movieForm.prepend(alert);
         if (theBody.ok) {
-            console.log(theBody);
-            alert.innerHTML = `<div class="alert alert-primary" role="alert">
+            alert.innerHTML = `
+            <div class="alert alert-success" role="alert">
             Movie has been added. You can add another one!
-            </div>`;
+
+            <img  src="${movieObject.imageUrl}" class="d-block image-card img-wrap " alt="...">
+   
+    
+            <div class="carousel-caption  ">
+                <span class="d-flex justify-content-center " >
+                      <h5 class=" movie-description">${movieObject.name}</h5>
+                </span>
+                <span class="d-flex justify-content-center " >
+                      <p class=" movie-description">${movieObject.description}</p>
+                </span>
+                <span class="d-flex justify-content-center " >
+                      <p class=" movie-description">${movieObject.category}</p>
+                </span>
+            
+            
+            <div>
+            
+            `;
             movieForm.prepend(alert);
             newMovieForm.reset();
             setTimeout(() => {
                 alert.innerHTML = ``;
-            }, 3000);
+            }, 4000);
 
             // movieForm.appendChild(createAlert("success", "The movie was posted!"));
         } else {
             alert.innerHTML = `<div class="alert alert-danger" role="alert">
             Check if you entered all the detailes needed 
-            </div>`;
+            </div>
+            
+            
+                    
+            
+            
+            
+            
+            
+   
+ 
+        </div>
+      
+
+        
+            
+            
+            
+            `;
         }
     } catch (error) {
         console.log("ERROR: ", error);

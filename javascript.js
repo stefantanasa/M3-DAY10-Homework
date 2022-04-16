@@ -157,10 +157,10 @@ const createThumbnaiDB = async(movie) => {
               <h5 class=" movie-description">${name}</h5>
         </span>
         <span class="d-flex justify-content-center " >
-              <p class=" movie-description">${category}</p>
+              <p class=" ">${category}</p>
         </span>
+        <p class=" movie-description">${description}</p>
         <span class="d-flex justify-content-center " >
-              <p class=" movie-description">${description}</p>
         </span>
         
         <!-- edit -->
