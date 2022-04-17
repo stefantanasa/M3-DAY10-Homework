@@ -24,24 +24,19 @@ const handleSubmit = async(event) => {
         if (theBody.ok) {
             alert.innerHTML = `
             <div class="alert alert-success" role="alert">
-            Movie has been added. You can add another one!
-
-            <img  src="${movieObject.imageUrl}" class="d-block image-card img-wrap " alt="...">
-   
+            ✅ ${movieObject.name} has been updated!!!
+            </div>
+            <img  src="${movieObject.imageUrl}" class="d-block  img-wrap " alt="...">
     
-            <div class="carousel-caption  ">
-                <span class="d-flex justify-content-center " >
+                <span class=" justify-content-center " >
                       <h5 class=" movie-description">${movieObject.name}</h5>
                 </span>
-                <span class="d-flex justify-content-center " >
+                <span class=" justify-content-center " >
                       <p class=" movie-description">${movieObject.description}</p>
                 </span>
-                <span class="d-flex justify-content-center " >
+                <span class=" justify-content-center " >
                       <p class=" movie-description">${movieObject.category}</p>
                 </span>
-            
-            
-            <div>
             
             `;
             movieForm.prepend(alert);
@@ -64,7 +59,7 @@ const handleSubmit = async(event) => {
         console.log("ERROR: ", error);
         movieForm.prepend(alert);
         alert.innerHTML = `<div class="alert alert-danger" role="alert">
-ERROR: ${error}
+❌ERROR: ${error}
 </div>`;
     }
 };
@@ -95,15 +90,44 @@ let params = new URLSearchParams(window.location.search);
 // edit movie methods:
 const handleEditSumbit = async(event) => {
     event.preventDefault();
-    let id = params.get("_id");
-    editObject = {
-        name: document.querySelector("#title").value,
-        description: document.querySelector("#description").value,
-        category: document.querySelector("#category").value,
-        imageUrl: document.querySelector("#cover").value,
-    };
-    await getData("PUT", id, editObject);
-    console.log("Submit edit was triggered", editObject);
+
+    try {
+        let id = params.get("_id");
+        editObject = {
+            name: document.querySelector("#title").value,
+            description: document.querySelector("#description").value,
+            category: document.querySelector("#category").value,
+            imageUrl: document.querySelector("#cover").value,
+        };
+        let bodyResponse = await getData("PUT", isd, editObject);
+        console.log("BR: ", bodyResponse);
+        if (bodyResponse.ok) {
+            console.log("All good");
+            alert.innerHTML = `
+        <div class="alert alert-success" role="alert">
+        ✅ ${editObject.name} has been updated!!!
+        </div>
+        <img  src="${editObject.imageUrl}" class="d-block  img-wrap " alt="...">
+
+            <span class=" justify-content-center " >
+                  <h5 class=" movie-description">${editObject.name}</h5>
+            </span>
+            <span class=" justify-content-center " >
+                  <p class=" movie-description">${editObject.description}</p>
+            </span>
+            <span class=" justify-content-center " >
+                  <p class=" movie-description">${editObject.category}</p>
+            </span>
+        
+        `;
+            movieForm.prepend(alert);
+        }
+    } catch (error) {
+        movieForm.prepend(alert);
+        alert.innerHTML = `<div class="alert alert-danger" role="alert">
+❌ERROR: ${error}
+</div>`;
+    }
 };
 
 if (params.get("name")) {
@@ -114,6 +138,7 @@ if (params.get("name")) {
 
     // get akk dates from the url params
     let titleValue = params.get("name");
+    document.querySelector(".page-title").textContent = `Edit ${titleValue}`;
     let descriptionValue = params.get("description");
     let categoryValue = params.get("category");
     let coverValue = params.get("imageUrl");
