@@ -135,7 +135,7 @@ const getAllMovies = async(movie) => {
 };
 
 const handleMovieDetails = (category) => {
-    window.location.href = `/add-movie-page.html?${category}`;
+    window.location.href = `M3-DAY10-Homework/add-movie-page.html?${category}`;
 };
 
 const createThumbnaiDB = async(movie) => {
