@@ -4,6 +4,7 @@ let newMovieForm = document.querySelector("#new-movie-form");
 alert.classList = ["alert", "alert-primary"];
 
 const handleSubmit = async(event) => {
+    event.preventDefault();
     let titleValue = document.querySelector("#title").value;
     let descriptionValue = document.querySelector("#description").value;
     let categoryValue = document.querySelector("#category").value;
@@ -18,8 +19,6 @@ const handleSubmit = async(event) => {
         imageUrl: coverValue,
     };
     try {
-        event.preventDefault();
-
         let theBody = await getData("POST", "", movieObject);
         movieForm.prepend(alert);
         if (theBody.ok) {
@@ -56,23 +55,9 @@ const handleSubmit = async(event) => {
             alert.innerHTML = `<div class="alert alert-danger" role="alert">
             Check if you entered all the detailes needed 
             </div>
-            
-            
-                    
-            
-            
-            
-            
-            
-   
- 
-        </div>
-      
 
-        
-            
-            
-            
+        </div>
+
             `;
         }
     } catch (error) {
@@ -105,4 +90,60 @@ let getData = async(method, id = "", object = {}) => {
     }
 };
 
-console.log;
+let params = new URLSearchParams(window.location.search);
+
+// edit movie methods:
+const handleEditSumbit = async(event) => {
+    event.preventDefault();
+    let id = params.get("_id");
+    editObject = {
+        name: document.querySelector("#title").value,
+        description: document.querySelector("#description").value,
+        category: document.querySelector("#category").value,
+        imageUrl: document.querySelector("#cover").value,
+    };
+    await getData("PUT", id, editObject);
+    console.log("Submit edit was triggered", editObject);
+};
+
+if (params.get("name")) {
+    console.log("This is the edit page!");
+
+    movieForm.addEventListener("submit", handleEditSumbit);
+    document.querySelector(".add-btn").classList.add("d-none");
+
+    // get akk dates from the url params
+    let titleValue = params.get("name");
+    let descriptionValue = params.get("description");
+    let categoryValue = params.get("category");
+    let coverValue = params.get("imageUrl");
+
+    // // Set the clicked movie details
+    document.querySelector("#title").value = titleValue;
+    document.querySelector("#description").value = descriptionValue;
+    document.querySelector("#category").value = categoryValue;
+    document.querySelector("#cover").value = coverValue;
+
+    let editObject = {
+        name: titleValue,
+        description: descriptionValue,
+        category: categoryValue,
+        imageUrl: coverValue,
+    };
+    console.log(editObject);
+} else {
+    console.log("This is the add page!");
+    document.querySelector(".save-btn").classList.add("d-none");
+    movieForm.addEventListener("submit", handleSubmit);
+}
+
+// // console.log(params.has("name"));
+// let title = params.get("name");
+// console.log(`Movie Title: ${title}`);
+
+// console.log(titleValue, descriptionValue, categoryValue, coverValue);
+
+// console.log(
+//   "Selection: ",
+//   document.querySelector("#category").options[0].innerText
+// );

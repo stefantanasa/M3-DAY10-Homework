@@ -38,7 +38,7 @@ let getData = async(method, id = "", object = {}) => {
                 },
             }
         );
-        console.log("Response: ", response);
+
         data = await response.json();
 
         return data;
@@ -122,9 +122,8 @@ const handleLoadMovies = async() => {
     }
 };
 
-const handleEdit = (name, description, category, _id, createdAt) => {
-    window.location.href = `M3-DAY10-Homework/add-movie-page.html?name=${name}&description=${description}&method=PUT
-    &category=${category}&_id=${_id}&createdAt=${createdAt}`;
+const handleEdit = (name, description, category, _id, createdAt, imageUrl) => {
+    window.location.href = `M3-DAY10-Homework/add-movie-page.html?name=${name}&description=${description}&category=${category}&_id=${_id}&imageUrl=${imageUrl}`;
 };
 
 const getAllMovies = async(movie) => {
@@ -169,7 +168,7 @@ const createThumbnaiDB = async(movie) => {
         class="actions-button btn btn-warning"
          type="button"
           onClick="handleEdit(
-              '${name}','${description}','${category}','${_id}','${createdAt}'
+              '${name}','${description}','${category}','${_id}','${createdAt}','${imageUrl}'
               )"
          class="btn btn-warning">
         
