@@ -145,7 +145,34 @@ const createThumbnaiDB = async(movie) => {
     let movieDb = document.createElement("div");
     movieDb.classList = ["carousel-item", "image-card", "active", _id];
     movieDb.setAttribute("id", _id);
-    movieDb.innerHTML = `
+    if (window.location.href.includes("dashboard.html")) {
+        movieDb.innerHTML += `
+        <!-- edit -->
+        <div class="d-flex justify-content-center" >
+        <button 
+        class="btn btn-warning "
+         type="button"
+          onClick="handleEdit(
+              '${name}','${description}','${category}','${_id}','${createdAt}','${imageUrl}'
+              )"
+         class="btn btn-warning">
+        
+        <i  class="fa fa-pencil " aria-hidden="true"></i>
+        
+        </button>
+    
+        <!-- delete -->
+        <button type="button"
+        onClick="return handleDelete('${_id}','${name}')"
+           class="btn btn-danger "
+           data-toggle="modal" data-target="#validate-delete"
+           >
+        <i class="fa fa-trash-o " aria-hidden="true"></i>
+        </button>
+        </div>
+        `;
+    }
+    movieDb.innerHTML += `
 
    
     <img src="${imageUrl}" class="d-block image-card img-wrap " alt="...">
@@ -158,45 +185,15 @@ const createThumbnaiDB = async(movie) => {
         <span class="d-flex justify-content-center " >
               <p class=" ">${category}</p>
         </span>
-        <p class=" movie-description">${description}</p>
         <span class="d-flex justify-content-center " >
+        <p class=" movie-description">${description}</p>
         </span>
         
       
-      
-
-        
     </div>
 
 
     `;
-    if (window.location.href.includes("dashboard.html")) {
-        movieDb.innerHTML += `
-        <!-- edit -->
-        <div class="actions-button">
-        <button 
-        class="actions-button btn btn-warning"
-         type="button"
-          onClick="handleEdit(
-              '${name}','${description}','${category}','${_id}','${createdAt}','${imageUrl}'
-              )"
-         class="btn btn-warning">
-        
-        <i  class="fa fa-pencil " aria-hidden="true"></i>
-        
-        </button>
-        
-        <!-- delete -->
-        <button type="button"
-        onClick="return handleDelete('${_id}','${name}')"
-           class="btn btn-danger d-flex-wrap justify-content-end"
-           data-toggle="modal" data-target="#validate-delete"
-           >
-        <i class="fa fa-trash-o " aria-hidden="true"></i>
-        </button>
-        </div>
-        `;
-    }
 
     moviesRowDB.appendChild(movieDb);
 };
