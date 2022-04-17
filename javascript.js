@@ -123,7 +123,7 @@ const handleLoadMovies = async() => {
 };
 
 const handleEdit = (name, description, category, _id, createdAt, imageUrl) => {
-    window.location.href = `M3-DAY10-Homework/add-movie-page.html?name=${name}&description=${description}&category=${category}&_id=${_id}&imageUrl=${imageUrl}`;
+    window.location.href = `add-movie-page.html?name=${name}&description=${description}&category=${category}&_id=${_id}&imageUrl=${imageUrl}`;
 };
 
 const getAllMovies = async(movie) => {
@@ -135,7 +135,7 @@ const getAllMovies = async(movie) => {
 };
 
 const handleMovieDetails = (category) => {
-    window.location.href = `M3-DAY10-Homework/add-movie-page.html?${category}`;
+    window.location.href = `/add-movie-page.html?${category}`;
 };
 
 const createThumbnaiDB = async(movie) => {
@@ -162,6 +162,16 @@ const createThumbnaiDB = async(movie) => {
         <span class="d-flex justify-content-center " >
         </span>
         
+      
+      
+
+        
+    </div>
+
+
+    `;
+    if (window.location.href.includes("dashboard.html")) {
+        movieDb.innerHTML += `
         <!-- edit -->
         <div class="actions-button">
         <button 
@@ -179,24 +189,20 @@ const createThumbnaiDB = async(movie) => {
         <!-- delete -->
         <button type="button"
         onClick="return handleDelete('${_id}','${name}')"
-           class="btn btn-danger"
+           class="btn btn-danger d-flex-wrap justify-content-end"
            data-toggle="modal" data-target="#validate-delete"
            >
         <i class="fa fa-trash-o " aria-hidden="true"></i>
         </button>
         </div>
-      
-
-        
-    </div>
-
-
-    `;
+        `;
+    }
 
     moviesRowDB.appendChild(movieDb);
 };
 
 window.onload = () => {
+    console.log("Link page: ", window.location.href.includes("index.html"));
     handleLoadMovies();
     // console.log((document.querySelector(".no-selection").selected = false));
 };
