@@ -99,7 +99,7 @@ const handleEditSumbit = async(event) => {
             category: document.querySelector("#category").value,
             imageUrl: document.querySelector("#cover").value,
         };
-        let bodyResponse = await getData("PUT", isd, editObject);
+        let bodyResponse = await getData("PUT", id, editObject);
         console.log("BR: ", bodyResponse);
         if (bodyResponse.ok) {
             console.log("All good");

@@ -50,10 +50,20 @@ let getData = async(method, id = "", object = {}) => {
 // dashboard
 
 const handleDelete = (movieId, title) => {
-    handleValidation(movieId, title);
+    const classId = document.getElementById(`${movieId}`);
+    const modalBox = document.querySelector(".movie-title-validation");
+    modalBox.textContent = title;
+    const confirmationButton = document.querySelector(".confirmation-button");
+    confirmationButton.addEventListener("click", () => {
+        console.log("Deleted", movieId);
+        classId.remove();
+        console.log("Removed!");
+        getData("DELETE", movieId);
+    });
 };
 
 const handleValidation = (id, title) => {
+    console.log("handleValidation was triggered was triggered");
     const classId = document.getElementById(`${id}`);
     console.log(classId);
     const modalBox = document.querySelector(".movie-title-validation");
@@ -145,17 +155,18 @@ const createThumbnaiDB = async(movie) => {
     let movieDb = document.createElement("div");
     movieDb.classList = ["carousel-item", "image-card", "active", _id];
     movieDb.setAttribute("id", _id);
+
     if (window.location.href.includes("dashboard.html")) {
         movieDb.innerHTML += `
         <!-- edit -->
-        <div class="d-flex justify-content-center" >
+        <div class="actions-buttons " >
         <button 
-        class="btn btn-warning "
+        class="btn btn-warning  "
          type="button"
           onClick="handleEdit(
               '${name}','${description}','${category}','${_id}','${createdAt}','${imageUrl}'
               )"
-         class="btn btn-warning">
+         class="btn btn-warning ">
         
         <i  class="fa fa-pencil " aria-hidden="true"></i>
         
@@ -163,7 +174,7 @@ const createThumbnaiDB = async(movie) => {
     
         <!-- delete -->
         <button type="button"
-        onClick="return handleDelete('${_id}','${name}')"
+        onClick="handleDelete('${_id}','${name}')"
            class="btn btn-danger "
            data-toggle="modal" data-target="#validate-delete"
            >
@@ -172,25 +183,18 @@ const createThumbnaiDB = async(movie) => {
         </div>
         `;
     }
+    onClick = "handleDelete('${_id}','${name}')";
     movieDb.innerHTML += `
 
-   
-    <img src="${imageUrl}" class="d-block image-card img-wrap " alt="...">
-   
-    
-    <div class="carousel-caption caption ">
-        <span class="d-flex justify-content-center " >
-              <h5 class=" movie-description">${name}</h5>
-        </span>
-        <span class="d-flex justify-content-center " >
-              <p class=" ">${category}</p>
-        </span>
-        <span class="d-flex justify-content-center " >
-        <p class=" movie-description">${description}</p>
-        </span>
-        
-      
+<div class="image-card">
+<div class="darker-thumbnail"></div>
+    <img src="${imageUrl}" class="thumbnail" alt="..."/>
+    <div class="movie-description">
+    <h5 class=" ">${name}</h5>
+    <p class=" ">${category}</p>
+    <p class=" ">${description}description</p>
     </div>
+</div>
 
 
     `;
