@@ -27,7 +27,8 @@ const handleSubmit = async(event) => {
             ✅ ${movieObject.name} has been updated!!!
             </div>
             <img  src="${movieObject.imageUrl}" class="d-block  img-wrap " alt="...">
-    
+
+
                 <span class=" justify-content-center " >
                       <h5 class=" movie-description">${movieObject.name}</h5>
                 </span>
@@ -107,17 +108,11 @@ const handleEditSumbit = async(event) => {
         <div class="alert alert-success" role="alert">
         ✅ ${editObject.name} has been updated!!!
         </div>
-        <img  src="${editObject.imageUrl}" class="d-block  img-wrap " alt="...">
 
-            <span class=" justify-content-center " >
-                  <h5 class=" movie-description">${editObject.name}</h5>
-            </span>
-            <span class=" justify-content-center " >
-                  <p class=" movie-description">${editObject.description}</p>
-            </span>
-            <span class=" justify-content-center " >
-                  <p class=" movie-description">${editObject.category}</p>
-            </span>
+ 
+
+
+
         
         `;
             movieForm.prepend(alert);
@@ -131,6 +126,9 @@ const handleEditSumbit = async(event) => {
 };
 
 if (params.get("name")) {
+    if (params.get("preview")) {
+        newMovieForm.classList.add("d-none");
+    }
     console.log("This is the edit page!");
 
     movieForm.addEventListener("submit", handleEditSumbit);
@@ -155,7 +153,19 @@ if (params.get("name")) {
         category: categoryValue,
         imageUrl: coverValue,
     };
-    console.log(editObject);
+    console.log("movie: ", editObject);
+    const moviePreview = document.querySelector(".movie-details-preview");
+    moviePreview.innerHTML = `
+    <div class="image-card-preview" >
+    <div class="darker-thumbnail" ></div>
+        <img src="${editObject.imageUrl}" class="thumbnail" alt="..."/>
+        <div class="movie-description-preview">
+        <h5 class=" ">${editObject.name} </h5>
+        <p class=" ">Category${editObject.category}</p>
+        <p class=" ">${editObject.description}description</p>
+        </div>
+    </div>
+    `;
 } else {
     console.log("This is the add page!");
     document.querySelector(".save-btn").classList.add("d-none");

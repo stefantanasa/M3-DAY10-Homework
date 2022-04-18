@@ -183,8 +183,9 @@ const createThumbnaiDB = async(movie) => {
         </div>
         `;
     }
-    onClick = "handleDelete('${_id}','${name}')";
+
     movieDb.innerHTML += `
+<a href="add-movie-page.html?name=${name}&description=${description}&category=${category}&_id=${_id}&imageUrl=${imageUrl}&preview=true";
 
 <div class="image-card">
 <div class="darker-thumbnail"></div>
@@ -196,7 +197,7 @@ const createThumbnaiDB = async(movie) => {
     </div>
 </div>
 
-
+<a/>
     `;
 
     moviesRowDB.appendChild(movieDb);
